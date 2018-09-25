@@ -1,7 +1,7 @@
 Exploring Gun Deaths in America
 ================
 Benjamin Soltoff
-October 3, 2017
+October 10, 2018
 
 Get the data
 ------------
@@ -10,19 +10,16 @@ Get the data
 library(tidyverse)    # load tidyverse packages, including ggplot2
 ```
 
-    ## + ggplot2 2.2.1             Date: 2017-10-03
-    ## + tibble  1.3.4                R: 3.4.1
-    ## + tidyr   0.7.0               OS: macOS Sierra 10.12.6
-    ## + readr   1.1.1              GUI: X11
-    ## + purrr   0.2.3           Locale: en_US.UTF-8
-    ## + dplyr   0.7.2.9000          TZ: America/Chicago
-    ## + stringr 1.2.0           
-    ## + forcats 0.2.0
+    ## ── Attaching packages ───────────────────────────────────────────────────────── tidyverse 1.2.1 ──
 
-    ## ── Conflicts ────────────────────────────────────────────────────
+    ## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+    ## ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+    ## ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+    ## ✔ readr   1.1.1     ✔ forcats 0.3.0
 
-    ## * filter(),  from dplyr, masks stats::filter()
-    ## * lag(),     from dplyr, masks stats::lag()
+    ## ── Conflicts ──────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ✖ dplyr::filter() masks stats::filter()
+    ## ✖ dplyr::lag()    masks stats::lag()
 
 ``` r
 library(knitr)        # load functions for formatting tables
@@ -38,23 +35,24 @@ gun_deaths
 ```
 
     ## # A tibble: 100,798 x 10
-    ##       id  year month       intent police   sex   age
-    ##    <int> <int> <dbl>        <chr>  <int> <chr> <int>
-    ##  1     1  2012     1      Suicide      0     M    34
-    ##  2     2  2012     1      Suicide      0     F    21
-    ##  3     3  2012     1      Suicide      0     M    60
-    ##  4     4  2012     2      Suicide      0     M    64
-    ##  5     5  2012     2      Suicide      0     M    31
-    ##  6     6  2012     2      Suicide      0     M    17
-    ##  7     7  2012     2 Undetermined      0     M    48
-    ##  8     8  2012     3      Suicide      0     M    41
-    ##  9     9  2012     2   Accidental      0     M    50
-    ## 10    10  2012     2      Suicide      0     M    NA
-    ## # ... with 100,788 more rows, and 3 more variables: race <chr>,
-    ## #   place <chr>, education <fctr>
+    ##       id  year month intent  police sex     age race      place  education
+    ##    <int> <int> <dbl> <chr>    <int> <chr> <int> <chr>     <chr>  <fct>    
+    ##  1     1  2012     1 Suicide      0 M        34 Asian/Pa… Home   BA+      
+    ##  2     2  2012     1 Suicide      0 F        21 White     Street Some col…
+    ##  3     3  2012     1 Suicide      0 M        60 White     Other… BA+      
+    ##  4     4  2012     2 Suicide      0 M        64 White     Home   BA+      
+    ##  5     5  2012     2 Suicide      0 M        31 White     Other… HS/GED   
+    ##  6     6  2012     2 Suicide      0 M        17 Native A… Home   Less tha…
+    ##  7     7  2012     2 Undete…      0 M        48 White     Home   HS/GED   
+    ##  8     8  2012     3 Suicide      0 M        41 Native A… Home   HS/GED   
+    ##  9     9  2012     2 Accide…      0 M        50 White     Other… Some col…
+    ## 10    10  2012     2 Suicide      0 M        NA Black     Home   <NA>     
+    ## # ... with 100,788 more rows
 
-In what month do the most gun deaths occur?
--------------------------------------------
+Generate a data frame that summarizes the number of gun deaths per month.
+-------------------------------------------------------------------------
+
+### Print the data frame as a formatted `kable()` table.
 
 |  Month|  Number of Deaths|
 |------:|-----------------:|
@@ -71,54 +69,26 @@ In what month do the most gun deaths occur?
 |     11|              8243|
 |     12|              8413|
 
-### With a bar chart
+### Generate a bar chart with human-readable labels on the x-axis. That is, each month should be labeled "Jan", "Feb", "Mar" (full or abbreviated month names are fine), not `1`, `2`, `3`.
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-3-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-3-1.png)![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-3-2.png)
 
-### With a line chart
+Generate a bar chart that identifies the number of gun deaths associated with each type of intent cause of death. The bars should be sorted from highest to lowest values.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-4-1.png)
 
-What is the most common intent in gun deaths? Do most people killed by guns die in suicides, homicides, or accidental shootings?
---------------------------------------------------------------------------------------------------------------------------------
-
-| Intent of Shooting |  Number of Deaths|
-|:-------------------|-----------------:|
-| Accidental         |              1639|
-| Homicide           |             35176|
-| Suicide            |             63175|
-| Undetermined       |               807|
-| NA                 |                 1|
-
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
-
-What is the average age of females killed by guns?
---------------------------------------------------
-
-| Sex    |  Average Age|
-|:-------|------------:|
-| Female |        43.70|
-| Male   |        43.88|
-
-### Using a bar graph
-
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
-
-### Using a boxplot
+Generate a boxplot visualizing the age of gun death victims, by sex. Print the average age of female gun death victims.
+-----------------------------------------------------------------------------------------------------------------------
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-8-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
-### Using a violin plot
-
-    ## Warning: Removed 18 rows containing non-finite values (stat_ydensity).
-
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-9-1.png)
-
-### Using a [letter-value boxplot](https://github.com/hadley/lvplot)
-
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-10-1.png)
+    ## # A tibble: 1 x 1
+    ##     age
+    ##   <dbl>
+    ## 1  43.7
 
 How many white males with at least a high school education were killed by guns in 2012?
 ---------------------------------------------------------------------------------------
@@ -142,53 +112,27 @@ Assume that:
 | Summer |             26280|
 | Fall   |             25062|
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-12-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
-What is the relationship between race and intent?
-=================================================
-
-For example, are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
-
-| Race of Victim                 | Intent of Shooting |  Number of Deaths|
-|:-------------------------------|:-------------------|-----------------:|
-| Asian/Pacific Islander         | Accidental         |                12|
-| Asian/Pacific Islander         | Homicide           |               559|
-| Asian/Pacific Islander         | Suicide            |               745|
-| Asian/Pacific Islander         | Undetermined       |                10|
-| Black                          | Accidental         |               328|
-| Black                          | Homicide           |             19510|
-| Black                          | Suicide            |              3332|
-| Black                          | Undetermined       |               126|
-| Hispanic                       | Accidental         |               145|
-| Hispanic                       | Homicide           |              5634|
-| Hispanic                       | Suicide            |              3171|
-| Hispanic                       | Undetermined       |                72|
-| Native American/Native Alaskan | Accidental         |                22|
-| Native American/Native Alaskan | Homicide           |               326|
-| Native American/Native Alaskan | Suicide            |               555|
-| Native American/Native Alaskan | Undetermined       |                14|
-| White                          | Accidental         |              1132|
-| White                          | Homicide           |              9147|
-| White                          | Suicide            |             55372|
-| White                          | Undetermined       |               585|
-| White                          | NA                 |                 1|
+Are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
+===================================================================================================================================
 
 An okay graph
 -------------
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-14-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 A better graph
 --------------
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-15-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 Are police-involved gun deaths significantly different from other gun deaths? Assess the relationship between police involvement and age, police involvement and race, and the intersection of all three variables.
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     ## # A tibble: 172 x 3
-    ##             police   age     n
-    ##             <fctr> <int> <int>
+    ##    police            age     n
+    ##    <fct>           <int> <int>
     ##  1 Police involved    12     1
     ##  2 Police involved    13     1
     ##  3 Police involved    14     1
@@ -203,27 +147,27 @@ Are police-involved gun deaths significantly different from other gun deaths? As
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-1.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
     ## # A tibble: 10 x 3
-    ##                police                           race     n
-    ##                <fctr>                          <chr> <int>
-    ##  1    Police involved         Asian/Pacific Islander    30
-    ##  2    Police involved                          Black   356
-    ##  3    Police involved                       Hispanic   282
-    ##  4    Police involved Native American/Native Alaskan    25
-    ##  5    Police involved                          White   709
-    ##  6 No police involved         Asian/Pacific Islander  1296
-    ##  7 No police involved                          Black 22940
-    ##  8 No police involved                       Hispanic  8740
+    ##    police             race                               n
+    ##    <fct>              <chr>                          <int>
+    ##  1 Police involved    Asian/Pacific Islander            30
+    ##  2 Police involved    Black                            356
+    ##  3 Police involved    Hispanic                         282
+    ##  4 Police involved    Native American/Native Alaskan    25
+    ##  5 Police involved    White                            709
+    ##  6 No police involved Asian/Pacific Islander          1296
+    ##  7 No police involved Black                          22940
+    ##  8 No police involved Hispanic                        8740
     ##  9 No police involved Native American/Native Alaskan   892
-    ## 10 No police involved                          White 65528
+    ## 10 No police involved White                          65528
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-2.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-10-2.png)
 
     ## # A tibble: 671 x 4
-    ##             police                   race   age     n
-    ##             <fctr>                  <chr> <int> <int>
+    ##    police          race                     age     n
+    ##    <fct>           <chr>                  <int> <int>
     ##  1 Police involved Asian/Pacific Islander    19     1
     ##  2 Police involved Asian/Pacific Islander    20     1
     ##  3 Police involved Asian/Pacific Islander    21     3
@@ -238,11 +182,11 @@ Are police-involved gun deaths significantly different from other gun deaths? As
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-3.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-10-3.png)
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_solution_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-16-4.png)
+![](gun_deaths_solution_files/figure-markdown_github/unnamed-chunk-10-4.png)
 
 Session info
 ------------
@@ -254,86 +198,83 @@ devtools::session_info()
     ## Session info -------------------------------------------------------------
 
     ##  setting  value                       
-    ##  version  R version 3.4.1 (2017-06-30)
+    ##  version  R version 3.5.1 (2018-07-02)
     ##  system   x86_64, darwin15.6.0        
     ##  ui       X11                         
     ##  language (EN)                        
     ##  collate  en_US.UTF-8                 
     ##  tz       America/Chicago             
-    ##  date     2017-10-03
+    ##  date     2018-09-25
 
     ## Packages -----------------------------------------------------------------
 
-    ##  package    * version    date       source                              
-    ##  assertthat   0.2.0      2017-04-11 CRAN (R 3.4.0)                      
-    ##  backports    1.1.0      2017-05-22 CRAN (R 3.4.0)                      
-    ##  base       * 3.4.1      2017-07-07 local                               
-    ##  bindr        0.1        2016-11-13 CRAN (R 3.4.0)                      
-    ##  bindrcpp   * 0.2        2017-06-17 CRAN (R 3.4.0)                      
-    ##  boxes        0.0.0.9000 2017-07-19 Github (r-pkgs/boxes@03098dc)       
-    ##  broom        0.4.2      2017-08-09 local                               
-    ##  cellranger   1.1.0      2016-07-27 CRAN (R 3.4.0)                      
-    ##  clisymbols   1.2.0      2017-05-21 cran (@1.2.0)                       
-    ##  colorspace   1.3-2      2016-12-14 CRAN (R 3.4.0)                      
-    ##  compiler     3.4.1      2017-07-07 local                               
-    ##  crayon       1.3.2.9000 2017-07-19 Github (gaborcsardi/crayon@750190f) 
-    ##  datasets   * 3.4.1      2017-07-07 local                               
-    ##  devtools     1.13.3     2017-08-02 CRAN (R 3.4.1)                      
-    ##  digest       0.6.12     2017-01-27 CRAN (R 3.4.0)                      
-    ##  dplyr      * 0.7.2.9000 2017-08-10 Github (tidyverse/dplyr@65db321)    
-    ##  evaluate     0.10.1     2017-06-24 CRAN (R 3.4.1)                      
-    ##  forcats    * 0.2.0      2017-01-23 CRAN (R 3.4.0)                      
-    ##  foreign      0.8-69     2017-06-22 CRAN (R 3.4.1)                      
-    ##  ggplot2    * 2.2.1      2016-12-30 CRAN (R 3.4.0)                      
-    ##  glue         1.1.1      2017-06-21 CRAN (R 3.4.1)                      
-    ##  graphics   * 3.4.1      2017-07-07 local                               
-    ##  grDevices  * 3.4.1      2017-07-07 local                               
-    ##  grid         3.4.1      2017-07-07 local                               
-    ##  gtable       0.2.0      2016-02-26 CRAN (R 3.4.0)                      
-    ##  haven        1.1.0      2017-07-09 CRAN (R 3.4.1)                      
-    ##  highr        0.6        2016-05-09 CRAN (R 3.4.0)                      
-    ##  hms          0.3        2016-11-22 CRAN (R 3.4.0)                      
-    ##  htmltools    0.3.6      2017-04-28 CRAN (R 3.4.0)                      
-    ##  httr         1.3.1      2017-08-20 CRAN (R 3.4.1)                      
-    ##  jsonlite     1.5        2017-06-01 CRAN (R 3.4.0)                      
-    ##  knitr      * 1.17       2017-08-10 cran (@1.17)                        
-    ##  labeling     0.3        2014-08-23 CRAN (R 3.4.0)                      
-    ##  lattice      0.20-35    2017-03-25 CRAN (R 3.4.1)                      
-    ##  lazyeval     0.2.0      2016-06-12 CRAN (R 3.4.0)                      
-    ##  lubridate    1.6.0      2016-09-13 CRAN (R 3.4.0)                      
-    ##  lvplot     * 0.2.0      2016-05-01 CRAN (R 3.4.0)                      
-    ##  magrittr     1.5        2014-11-22 CRAN (R 3.4.0)                      
-    ##  memoise      1.1.0      2017-04-21 CRAN (R 3.4.0)                      
-    ##  methods    * 3.4.1      2017-07-07 local                               
-    ##  mnormt       1.5-5      2016-10-15 CRAN (R 3.4.0)                      
-    ##  modelr       0.1.1      2017-08-10 local                               
-    ##  munsell      0.4.3      2016-02-13 CRAN (R 3.4.0)                      
-    ##  nlme         3.1-131    2017-02-06 CRAN (R 3.4.1)                      
-    ##  parallel     3.4.1      2017-07-07 local                               
-    ##  pkgconfig    2.0.1      2017-03-21 CRAN (R 3.4.0)                      
-    ##  plyr         1.8.4      2016-06-08 CRAN (R 3.4.0)                      
-    ##  psych        1.7.5      2017-05-03 CRAN (R 3.4.1)                      
-    ##  purrr      * 0.2.3      2017-08-02 CRAN (R 3.4.1)                      
-    ##  R6           2.2.2      2017-06-17 CRAN (R 3.4.0)                      
-    ##  rcfss      * 0.1.5      2017-07-31 local                               
-    ##  Rcpp         0.12.12    2017-07-15 CRAN (R 3.4.1)                      
-    ##  readr      * 1.1.1      2017-05-16 CRAN (R 3.4.0)                      
-    ##  readxl       1.0.0      2017-04-18 CRAN (R 3.4.0)                      
-    ##  reshape2     1.4.2      2016-10-22 CRAN (R 3.4.0)                      
-    ##  rlang        0.1.2      2017-08-09 CRAN (R 3.4.1)                      
-    ##  rmarkdown    1.6        2017-06-15 CRAN (R 3.4.0)                      
-    ##  rprojroot    1.2        2017-01-16 CRAN (R 3.4.0)                      
-    ##  rstudioapi   0.6        2016-06-27 CRAN (R 3.4.0)                      
-    ##  rvest        0.3.2      2016-06-17 CRAN (R 3.4.0)                      
-    ##  scales       0.4.1      2016-11-09 CRAN (R 3.4.0)                      
-    ##  stats      * 3.4.1      2017-07-07 local                               
-    ##  stringi      1.1.5      2017-04-07 CRAN (R 3.4.0)                      
-    ##  stringr    * 1.2.0      2017-02-18 CRAN (R 3.4.0)                      
-    ##  tibble     * 1.3.4      2017-08-22 CRAN (R 3.4.1)                      
-    ##  tidyr      * 0.7.0      2017-08-16 CRAN (R 3.4.1)                      
-    ##  tidyverse  * 1.1.1.9000 2017-07-19 Github (tidyverse/tidyverse@a028619)
-    ##  tools        3.4.1      2017-07-07 local                               
-    ##  utils      * 3.4.1      2017-07-07 local                               
-    ##  withr        2.0.0      2017-07-28 CRAN (R 3.4.1)                      
-    ##  xml2         1.1.1      2017-01-24 CRAN (R 3.4.0)                      
-    ##  yaml         2.1.14     2016-11-12 CRAN (R 3.4.0)
+    ##  package    * version date       source        
+    ##  assertthat   0.2.0   2017-04-11 CRAN (R 3.5.0)
+    ##  backports    1.1.2   2017-12-13 CRAN (R 3.5.0)
+    ##  base       * 3.5.1   2018-07-05 local         
+    ##  bindr        0.1.1   2018-03-13 CRAN (R 3.5.0)
+    ##  bindrcpp   * 0.2.2   2018-03-29 CRAN (R 3.5.0)
+    ##  broom        0.5.0   2018-07-17 CRAN (R 3.5.0)
+    ##  cellranger   1.1.0   2016-07-27 CRAN (R 3.5.0)
+    ##  cli          1.0.0   2017-11-05 CRAN (R 3.5.0)
+    ##  colorspace   1.3-2   2016-12-14 CRAN (R 3.5.0)
+    ##  compiler     3.5.1   2018-07-05 local         
+    ##  crayon       1.3.4   2017-09-16 CRAN (R 3.5.0)
+    ##  datasets   * 3.5.1   2018-07-05 local         
+    ##  devtools     1.13.6  2018-06-27 CRAN (R 3.5.0)
+    ##  digest       0.6.15  2018-01-28 CRAN (R 3.5.0)
+    ##  dplyr      * 0.7.6   2018-06-29 cran (@0.7.6) 
+    ##  evaluate     0.11    2018-07-17 CRAN (R 3.5.0)
+    ##  fansi        0.3.0   2018-08-13 CRAN (R 3.5.0)
+    ##  forcats    * 0.3.0   2018-02-19 CRAN (R 3.5.0)
+    ##  ggplot2    * 3.0.0   2018-07-03 CRAN (R 3.5.0)
+    ##  glue         1.3.0   2018-07-17 CRAN (R 3.5.0)
+    ##  graphics   * 3.5.1   2018-07-05 local         
+    ##  grDevices  * 3.5.1   2018-07-05 local         
+    ##  grid         3.5.1   2018-07-05 local         
+    ##  gtable       0.2.0   2016-02-26 CRAN (R 3.5.0)
+    ##  haven        1.1.2   2018-06-27 CRAN (R 3.5.0)
+    ##  highr        0.7     2018-06-09 CRAN (R 3.5.0)
+    ##  hms          0.4.2   2018-03-10 CRAN (R 3.5.0)
+    ##  htmltools    0.3.6   2017-04-28 CRAN (R 3.5.0)
+    ##  httr         1.3.1   2017-08-20 CRAN (R 3.5.0)
+    ##  jsonlite     1.5     2017-06-01 CRAN (R 3.5.0)
+    ##  knitr      * 1.20    2018-02-20 CRAN (R 3.5.0)
+    ##  labeling     0.3     2014-08-23 CRAN (R 3.5.0)
+    ##  lattice      0.20-35 2017-03-25 CRAN (R 3.5.1)
+    ##  lazyeval     0.2.1   2017-10-29 CRAN (R 3.5.0)
+    ##  lubridate    1.7.4   2018-04-11 CRAN (R 3.5.0)
+    ##  magrittr     1.5     2014-11-22 CRAN (R 3.5.0)
+    ##  memoise      1.1.0   2017-04-21 CRAN (R 3.5.0)
+    ##  methods    * 3.5.1   2018-07-05 local         
+    ##  modelr       0.1.2   2018-05-11 CRAN (R 3.5.0)
+    ##  munsell      0.5.0   2018-06-12 CRAN (R 3.5.0)
+    ##  nlme         3.1-137 2018-04-07 CRAN (R 3.5.1)
+    ##  pillar       1.3.0   2018-07-14 CRAN (R 3.5.0)
+    ##  pkgconfig    2.0.2   2018-08-16 CRAN (R 3.5.1)
+    ##  plyr         1.8.4   2016-06-08 CRAN (R 3.5.0)
+    ##  purrr      * 0.2.5   2018-05-29 CRAN (R 3.5.0)
+    ##  R6           2.2.2   2017-06-17 CRAN (R 3.5.0)
+    ##  rcfss      * 0.1.5   2018-05-30 local         
+    ##  Rcpp         0.12.18 2018-07-23 CRAN (R 3.5.0)
+    ##  readr      * 1.1.1   2017-05-16 CRAN (R 3.5.0)
+    ##  readxl       1.1.0   2018-04-20 CRAN (R 3.5.0)
+    ##  rlang        0.2.1   2018-05-30 CRAN (R 3.5.0)
+    ##  rmarkdown    1.10    2018-06-11 CRAN (R 3.5.0)
+    ##  rprojroot    1.3-2   2018-01-03 CRAN (R 3.5.0)
+    ##  rstudioapi   0.7     2017-09-07 CRAN (R 3.5.0)
+    ##  rvest        0.3.2   2016-06-17 CRAN (R 3.5.0)
+    ##  scales       1.0.0   2018-08-09 CRAN (R 3.5.0)
+    ##  stats      * 3.5.1   2018-07-05 local         
+    ##  stringi      1.2.4   2018-07-20 CRAN (R 3.5.0)
+    ##  stringr    * 1.3.1   2018-05-10 CRAN (R 3.5.0)
+    ##  tibble     * 1.4.2   2018-01-22 CRAN (R 3.5.0)
+    ##  tidyr      * 0.8.1   2018-05-18 CRAN (R 3.5.0)
+    ##  tidyselect   0.2.4   2018-02-26 CRAN (R 3.5.0)
+    ##  tidyverse  * 1.2.1   2017-11-14 CRAN (R 3.5.0)
+    ##  tools        3.5.1   2018-07-05 local         
+    ##  utf8         1.1.4   2018-05-24 CRAN (R 3.5.0)
+    ##  utils      * 3.5.1   2018-07-05 local         
+    ##  withr        2.1.2   2018-03-15 CRAN (R 3.5.0)
+    ##  xml2         1.2.0   2018-01-24 CRAN (R 3.5.0)
+    ##  yaml         2.2.0   2018-07-25 CRAN (R 3.5.0)

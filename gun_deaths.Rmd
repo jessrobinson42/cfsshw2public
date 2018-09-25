@@ -18,19 +18,27 @@ data("gun_deaths")
 gun_deaths
 ```
 
-## In what month do the most gun deaths occur?
+## Generate a data frame that summarizes the number of gun deaths per month.
+
+### Print the data frame as a formatted `kable()` table.
 
 ```{r}
 
 ```
 
-## What is the most common intent in gun deaths? Do most people killed by guns die in suicides, homicides, or accidental shootings?
+### Generate a bar chart with human-readable labels on the x-axis. That is, each month should be labeled "Jan", "Feb", "Mar" (full or abbreviated month names are fine), not `1`, `2`, `3`.
 
 ```{r}
 
 ```
 
-## What is the average age of females killed by guns?
+## Generate a bar chart that identifies the number of gun deaths associated with each type of intent cause of death. The bars should be sorted from highest to lowest values.
+
+```{r}
+
+```
+
+## Generate a boxplot visualizing the age of gun death victims, by sex. Print the average age of female gun death victims.
 
 ```{r}
 
@@ -55,15 +63,21 @@ Assume that:
 
 ```
 
-# What is the relationship between race and intent?
+# Are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
 
-For example, are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
+## An okay graph
 
 ```{r}
 
 ```
 
-# Are police-involved gun deaths significantly different from other gun deaths? Assess the relationship between police involvement and age, police involvement and race, and the intersection of all three variables.
+## A better graph
+
+```{r}
+
+```
+
+## Are police-involved gun deaths significantly different from other gun deaths? Assess the relationship between police involvement and age, police involvement and race, and the intersection of all three variables.
 
 ```{r}
 

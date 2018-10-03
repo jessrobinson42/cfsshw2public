@@ -65,14 +65,6 @@ Assume that:
 
 # Are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
 
-## An okay graph
-
-```{r}
-
-```
-
-## A better graph
-
 ```{r}
 
 ```

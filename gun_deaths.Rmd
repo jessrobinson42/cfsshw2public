@@ -19,7 +19,6 @@ gun_deaths
 ## Generate a data frame that summarizes the number of gun deaths per month.
 
 ### Print the data frame as a formatted `kable()` table.
-
 ```{r}
 gun_deaths <- gun_deaths %>%
   mutate(Months = factor(month, levels = seq(from = 1, to = 12), labels = month.abb))

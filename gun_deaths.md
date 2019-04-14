@@ -25,10 +25,9 @@ library(tidyverse)    # load tidyverse packages, including ggplot2
 ``` r
 library(rcfss)
 library(knitr)
-
 # load the data
 data("gun_deaths")
-gun_deaths
+gun_deaths 
 ```
 
     ## # A tibble: 100,798 x 10

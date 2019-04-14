@@ -10,10 +10,9 @@ output: github_document
 library(tidyverse)    # load tidyverse packages, including ggplot2
 library(rcfss)
 library(knitr)
-
 # load the data
 data("gun_deaths")
-gun_deaths
+gun_deaths 
 ```
 
 ## Generate a data frame that summarizes the number of gun deaths per month.

@@ -2,7 +2,7 @@ Exploring Gun Deaths in America
 ================
 By [Jessica Robinson](https://github.com/jessrobinson42/hw01/blob/master/README.md)
 
-Get the data
+Get the data 
 ------------
 
     ## ── Attaching packages ─────────────────────────── tidyverse 1.2.1 ──

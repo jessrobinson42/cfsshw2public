@@ -3,7 +3,7 @@ title: "Exploring Gun Deaths in America"
 author: "By [Jessica Robinson](https://github.com/jessrobinson42/hw01/blob/master/README.md)"
 output: github_document
 ---
-
+ 
 ## Get the data
 ```{r echo=FALSE}
 library(tidyverse)    # load tidyverse packages, including ggplot2

@@ -4,7 +4,7 @@ By [Jessica Robinson](https://github.com/jessrobinson42/hw01/blob/master/README.
 
 Get the data
 ------------
-
+ 
 ``` r
 library(tidyverse)    # load tidyverse packages, including ggplot2
 ```

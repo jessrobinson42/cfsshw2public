@@ -115,7 +115,7 @@ season_death <- gun_deaths %>%
 kable(season_death)
 ```
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 ###plot gun deaths by season 
 ggplot(gun_deaths, aes(Season, fill = Season)) +
   geom_bar() +

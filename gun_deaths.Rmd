@@ -36,8 +36,8 @@ kable(month_death)
 
 ```{r}
 ####plot gun deaths per month 
-ggplot(gun_deaths, aes(x = Months, fill = Months)) +
-  geom_bar() +
+ggplot(gun_deaths, aes(x = Months)) +
+  geom_bar(aes(fill = Months)) +
   labs(title = "Gun Deaths per Month",
        x = "Month",
        y = "Number of Gun Deaths") 

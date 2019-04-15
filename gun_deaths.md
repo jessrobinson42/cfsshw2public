@@ -218,7 +218,7 @@ ggplot(race_deaths, aes(x = race, fill = intent)) +
   geom_bar(position = "fill") + coord_flip() + 
   labs(title = "Gun Deaths",
        x = "Race",
-       y = "Proportion",
+       y = "Proportion of Gun Deaths",
        fill = "Intent")
 ```
 
@@ -233,47 +233,30 @@ Are police-involved gun deaths significantly different from other gun deaths? As
 ####mutate police involvement into factor
 gun_deaths <- gun_deaths %>% mutate(PolInv = factor(police, labels = c("Not Involved", "Involved")))
 
-
 ####plot police vs. race
 ggplot(gun_deaths, aes(x = PolInv, fill = race)) +
        geom_bar(position = "fill") +
         labs(title = "Police Involvement in Gun Deaths by Race",
        x = "Police Involvement",
-       y = "Proportion",
+       y = "Proportion of Gun Deaths",
        fill = "Race")
 ```
 
 ![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
-``` r
-####plot police vs. age 
-ggplot(gun_deaths, aes(x = PolInv, y = age, fill = PolInv)) +
-       geom_boxplot() +
- labs(title = "Police Involvement in Gun Deaths by Age",
-       x = "Police Involvement",
-       y = "Age",
-      fill = "Police Involvement"
-        )
-```
+Police involved deaths involve Black and Hispanic victims at a greater rate than non-police involved deaths.
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-2.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-12-1.png)
 
-``` r
-####plot police, age, race
-ggplot(gun_deaths, aes(x = race, y = age, fill = PolInv)) +
-       geom_boxplot() +
-  coord_flip() + 
- labs(title = "Police Involvement in Gun Deaths by Race and Age",
-       x = "Race",
-       y = "Age",
-      fill = "Police Involvement"  )
-```
+Police involved deaths generally involve younger victims than non-police involved deaths.
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-3.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-13-1.png)
+
+Police involved deaths are most signficantly different in age from non-police involved in deaths for White victims. For non-White vicitms, the age of victims does not signficantly vary between police-involved and non-police involved deaths.
 
 Session info
 ------------

@@ -80,7 +80,7 @@ kable(gun_deaths %>% filter(sex== "F")
 ```
 
 On average, female gun deaths victims are  **43.7** years old.
-
+ 
 ## How many white males with at least a high school education were killed by guns in 2012?
 
 ```{r}
@@ -141,7 +141,7 @@ ggplot(race_deaths, aes(x = race, fill = intent)) +
   geom_bar(position = "fill") + coord_flip() + 
   labs(title = "Gun Deaths",
        x = "Race",
-       y = "Proportion",
+       y = "Proportion of Gun Deaths",
        fill = "Intent")
 ```
 
@@ -159,7 +159,7 @@ ggplot(gun_deaths, aes(x = PolInv, fill = race)) +
        geom_bar(position = "fill") +
         labs(title = "Police Involvement in Gun Deaths by Race",
        x = "Police Involvement",
-       y = "Proportion of Gun Deatths",
+       y = "Proportion of Gun Deaths",
        fill = "Race")
 
 ```

@@ -1,6 +1,6 @@
 Exploring Gun Deaths in America
 ================
-Jess Robinson
+By [Jessica Robinson](https://github.com/jessrobinson42/hw01/blob/master/README.md)
 
 Get the data
 ------------
@@ -51,10 +51,15 @@ Generate a data frame that summarizes the number of gun deaths per month.
 ### Print the data frame as a formatted `kable()` table.
 
 ``` r
+#### add months as a factor variable for label purposes 
 gun_deaths <- gun_deaths %>%
   mutate(Months = factor(month, levels = seq(from = 1, to = 12), labels = month.abb))
+
+#### create deaths per months data frame
 month_death <- gun_deaths %>%
   count(Months) %>% rename("Month" = Months, "Number of Gun Deaths"= n)
+
+#####print data frame
 kable(month_death)
 ```
 
@@ -76,11 +81,12 @@ kable(month_death)
 ### Generate a bar chart with human-readable labels on the x-axis. That is, each month should be labeled "Jan", "Feb", "Mar" (full or abbreviated month names are fine), not `1`, `2`, `3`.
 
 ``` r
-ggplot(gun_deaths, aes(Months)) +
+####plot gun deaths per month 
+ggplot(gun_deaths, aes(Months, fill = Months)) +
   geom_bar() +
   labs(title = "Gun Deaths per Month",
        x = "Month",
-       y = "Number of Gun Deaths")
+       y = "Number of Gun Deaths") 
 ```
 
 ![](gun_deaths_files/figure-markdown_github/unnamed-chunk-3-1.png)
@@ -89,35 +95,42 @@ Generate a bar chart that identifies the number of gun deaths associated with ea
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ``` r
+#### plot intent in descending order 
 gun_deaths %>% 
   mutate(intent = intent %>% fct_infreq()) %>%
-ggplot(aes(intent)) +
+ggplot(aes(intent, fill = intent)) +
   geom_bar() +
   labs(title = "Gun Deaths by Intent",
        x = "Type of Intent",
-       y = "Number of Gun Deaths"
-       )
+       y = "Number of Gun Deaths",
+       fill = "Intent") 
 ```
 
 ![](gun_deaths_files/figure-markdown_github/unnamed-chunk-4-1.png)
+
+Suicide is the most common form of gun death, followed by homicide.
 
 Generate a boxplot visualizing the age of gun death victims, by sex. Print the average age of female gun death victims.
 -----------------------------------------------------------------------------------------------------------------------
 
 ``` r
-ggplot(gun_deaths, aes(sex, age)) +
+#####plot age of gun death victims by sex
+ggplot(gun_deaths, aes(sex, age, fill = sex)) +
   geom_boxplot() +
   labs(title = "Gun Death Victim Age by Sex of Victim",
        x = "Sex of Victim",
-       y = "Age of Death"
-  )
+       y = "Age of Death",
+       fill = "Sex")
 ```
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
 ![](gun_deaths_files/figure-markdown_github/unnamed-chunk-5-1.png)
 
+Men and women are killed at approximately the same age.
+
 ``` r
+#####print mean 
 kable(gun_deaths %>% filter(sex== "F")
       %>% summarise("Average Age of Female Gun Death Victims" = mean(age, na.rm=TRUE)))
 ```
@@ -126,15 +139,20 @@ kable(gun_deaths %>% filter(sex== "F")
 |----------------------------------------:|
 |                                 43.69507|
 
+On average, female gun deaths victims are **43.7** years old.
+
 How many white males with at least a high school education were killed by guns in 2012?
 ---------------------------------------------------------------------------------------
 
 ``` r
+####create filtered data frame
 edwm_2012_deaths <- gun_deaths %>%
   filter(education != "Less than HS")  %>%
   filter(sex == "M")  %>%
   filter(race == "White")  %>%
   filter(year == "2012")
+
+####print number of deaths in filtered frame 
 kable(tally(edwm_2012_deaths))
 ```
 
@@ -155,10 +173,15 @@ Assume that:
 -   Fall = October-December
 
 ``` r
+#####add Seasons variable 
 gun_deaths <- gun_deaths %>%
   mutate(Season = cut(month, c(0, 3, 6, 9, 12), labels = c("Winter", "Spring", "Summer", "Fall")))
+
+####create seasons data frame 
 season_death <- gun_deaths %>%
   count(Season) %>% rename("Number of Gun Deaths"= n)
+
+####print deaths per season 
 kable(season_death)
 ```
 
@@ -170,23 +193,27 @@ kable(season_death)
 | Fall   |                 25062|
 
 ``` r
-ggplot(gun_deaths, aes(Season)) +
+###plot gun deaths by season 
+ggplot(gun_deaths, aes(Season, fill = Season)) +
   geom_bar() +
   labs(title = "Gun Deaths per Season",
        x = "Season",
        y = "Number of Gun Deaths")
 ```
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 Are whites who are killed by guns more likely to die because of suicide or homicide? How does this compare to blacks and hispanics?
 ===================================================================================================================================
 
 ``` r
+####create data frame with just "White"", "Black, "Hispanic"
 rda <- gun_deaths %>% 
   filter(race != "Asian/Pacific Islander") 
 race_deaths <- rda %>% 
   filter(race != "Native American/Native Alaskan")
+
+####plot gun deaths by intent and race 
 ggplot(race_deaths, aes(x = race, fill = intent)) + 
   geom_bar(position = "fill") + coord_flip() + 
   labs(title = "Gun Deaths",
@@ -195,7 +222,7 @@ ggplot(race_deaths, aes(x = race, fill = intent)) +
        fill = "Intent")
 ```
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-9-1.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 White are more likely to die by because suicide than homicide. In comparison, blacks and hispanics are both more likely to die by homicide than suicide.
 
@@ -216,28 +243,29 @@ ggplot(gun_deaths, aes(x = PolInv, fill = race)) +
        fill = "Race")
 ```
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-10-1.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-1.png)
 
 ``` r
 ####plot police vs. age 
-ggplot(gun_deaths, aes(x = PolInv, y = age)) +
+ggplot(gun_deaths, aes(x = PolInv, y = age, fill = PolInv)) +
        geom_boxplot() +
  labs(title = "Police Involvement in Gun Deaths by Age",
        x = "Police Involvement",
-       y = "Age"
+       y = "Age",
+      fill = "Police Involvement"
         )
 ```
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-10-2.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-2.png)
 
 ``` r
 ####plot police, age, race
 ggplot(gun_deaths, aes(x = race, y = age, fill = PolInv)) +
        geom_boxplot() +
   coord_flip() + 
- labs(title = "P",
+ labs(title = "Police Involvement in Gun Deaths by Race and Age",
        x = "Race",
        y = "Age",
       fill = "Police Involvement"  )
@@ -245,7 +273,7 @@ ggplot(gun_deaths, aes(x = race, y = age, fill = PolInv)) +
 
     ## Warning: Removed 18 rows containing non-finite values (stat_boxplot).
 
-![](gun_deaths_files/figure-markdown_github/unnamed-chunk-10-3.png)
+![](gun_deaths_files/figure-markdown_github/unnamed-chunk-11-3.png)
 
 Session info
 ------------

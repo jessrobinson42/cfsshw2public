@@ -130,7 +130,7 @@ ggplot(gun_deaths, aes(x = sex, y = age, fill = sex)) +
 Men and women are killed at approximately the same age.
 
 ``` r
-#####print mean 
+#####print mean
 kable(gun_deaths %>% filter(sex== "F")
       %>% summarise("Average Age of Female Gun Death Victims" = mean(age, na.rm=TRUE)))
 ```

@@ -83,7 +83,7 @@ kable(month_death)
 ``` r
 ####plot gun deaths per month 
 ggplot(gun_deaths, aes(Months, fill = Months)) +
-  geom_bar() +
+  geom_bar(position="dodge") +
   labs(title = "Gun Deaths per Month",
        x = "Month",
        y = "Number of Gun Deaths") 
@@ -99,7 +99,7 @@ Generate a bar chart that identifies the number of gun deaths associated with ea
 gun_deaths %>% 
   mutate(intent = intent %>% fct_infreq()) %>%
 ggplot(aes(intent, fill = intent)) +
-  geom_bar() +
+   geom_bar(position="dodge") +
   labs(title = "Gun Deaths by Intent",
        x = "Type of Intent",
        y = "Number of Gun Deaths",

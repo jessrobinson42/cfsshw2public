@@ -82,8 +82,8 @@ kable(month_death)
 
 ``` r
 ####plot gun deaths per month 
-ggplot(gun_deaths, aes(Months, fill = Months)) +
-  geom_bar(position="dodge") +
+ggplot(gun_deaths, aes(x = Months, fill = Months)) +
+  geom_bar() +
   labs(title = "Gun Deaths per Month",
        x = "Month",
        y = "Number of Gun Deaths") 
@@ -98,8 +98,8 @@ Generate a bar chart that identifies the number of gun deaths associated with ea
 #### plot intent in descending order 
 gun_deaths %>% 
   mutate(intent = intent %>% fct_infreq()) %>%
-ggplot(aes(intent, fill = intent)) +
-   geom_bar(position="dodge") +
+ggplot(aes(x = intent, fill = intent)) +
+   geom_bar() +
   labs(title = "Gun Deaths by Intent",
        x = "Type of Intent",
        y = "Number of Gun Deaths",
@@ -115,7 +115,7 @@ Generate a boxplot visualizing the age of gun death victims, by sex. Print the a
 
 ``` r
 #####plot age of gun death victims by sex
-ggplot(gun_deaths, aes(sex, age, fill = sex)) +
+ggplot(gun_deaths, aes(x = sex, y = age, fill = sex)) +
   geom_boxplot() +
   labs(title = "Gun Death Victim Age by Sex of Victim",
        x = "Sex of Victim",

@@ -4,7 +4,7 @@ By [Jessica Robinson](https://github.com/jessrobinson42/hw01/blob/master/README.
 
 Get the data
 ------------
-
+ 
     ## ── Attaching packages ─────────────────────────── tidyverse 1.2.1 ──
 
     ## ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
